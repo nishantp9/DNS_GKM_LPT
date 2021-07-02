@@ -18,9 +18,9 @@ int main(int argc, char* argv[]) {
     
 /**	dim = int (cbrt(nprocs));
 */	
-	procDim[0] = proDim_y;
-	procDim[1] = proDim_x;
-	procDim[2] = proDim_z;
+	procDim[0] = procDim_y;
+	procDim[1] = procDim_x;
+	procDim[2] = procDim_z;
 	
     int periodic[3] = {true, true, true};
     
