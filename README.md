@@ -3,8 +3,9 @@
 ## Key Features
 * Solves 3D compressible turbulent flow in a cubic domain with periodic Boundary Conditions
 * Simulates Decaying compressible isotropic turbulent flow
-* Can be extended to simulate few other canonical flows as well, e.g. Flat Plate Boundary Layer, Channel Flow, Isotropic Stationary Turbulence etc. by just changing the boundary conditions in the codebase.
-* Writtin in C++ and parallelized using MPI and CUDA
+* Can be extended to simulate few other canonical flows as well, e.g. Flat Plate Boundary Layer, Channel Flow, Isotropic Stationary Turbulence etc. by changing the boundary conditions.
+* By adding a seperate module to add forcing term, the code can be extended to solve Stationary Isotropic Turbulence.
+* The codebase is writtin in C++ and parallelized using MPI and CUDA.
 
 ## Packages required
 * CUDA compliers
