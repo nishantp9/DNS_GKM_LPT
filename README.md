@@ -20,7 +20,10 @@
 ### Generate random initial locations of particles to be tracked with the flow
 * Open the script "Part_Gen.m" from <InitialConditions> directory and specify the number of particles to be tracked
 * Running the script "Part_Gen.m" will generate random particle locations
-  
+
+### Generate required directories
+* source getFolders.sh
+
 ### Compling the code for running on distribued nodes with multi-GPUs (MPI and CUDA)
 * Recommended for running high resolution simulations >= 512^3
 * make -f makefileGPU
