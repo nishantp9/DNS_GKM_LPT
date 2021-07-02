@@ -13,7 +13,7 @@ extern int nc, nt, Nc, Nt, nc_segx, nt_segx, nc_segy, nt_segy, nc_segz, numparti
 
 #define  procDim_y	2
 #define  procDim_x	2
-#define  procDim_z  2
+#define  procDim_z	2
 #define	 pi 	atan(1.0)*4.0
 #define  eps    pow(10.0,-10.0)
 #define  PRN    0.70

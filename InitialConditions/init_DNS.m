@@ -3,14 +3,15 @@
 
 clear;close all;
 
+%% Specify 3D virtual processor topology for data distribution
 procDim_y = 2;
 procDim_x = 2;
 procDim_z = 2;
 
 N = 256;
 Np = N*N*N;	
-%% Spectrum constant: Don't change
 
+%% Specify Mach number, Reynolds number and peak energy wave-number k
 Mt = 0.488; Re  = 175; k0 = 4;
 A = (sqrt(2/pi)*(16/3)*Mt^2/k0^5);% for energy spectrum, constant
 enrgySpec=@(wavenumber) A*wavenumber.^4.*exp(-2*(wavenumber/k0).^2)*Np^2;
