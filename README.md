@@ -1,12 +1,15 @@
 # Direct numerical simulation code for simulating Decaying Isotropic Flow and Lagrangian Particle Tracking
 
 ## Key Features
-* Solves 3D compressilbe turbulent flow in a cubic domain with periodic Boundary Conditions
+* Solves 3D compressible turbulent flow in a cubic domain with periodic Boundary Conditions
+* Simulates Decaying compressible isotropic turbulent flow
 * Writtin in C++ and parallelized using MPI and CUDA
 
 ## Packages required
-* module load compiler/cuda/7.0/compilervars
-* module load suite/intel/parallelStudio
+* CUDA compliers
+    * module load compiler/cuda/7.0/compilervars
+* Intel parallelStudio
+    * module load suite/intel/parallelStudio
 * Install einspline library http://einspline.sourceforge.net/ in the HPC $HOME folder
 
 ## Instructions to run the code on IITD HPC cluster https://supercomputing.iitd.ac.in/
