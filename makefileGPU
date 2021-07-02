@@ -1,0 +1,31 @@
+UNAME := $(shell uname)
+
+Main.out: Main.o FlowField.o update.o param.o ParticleTrack.o Interpolation.o GPUupdate.o GPUAlloc.o
+	mpiicpc -xcore-avx2 -O3 -o Main.out obj/Main.o obj/FlowField.o obj/update.o obj/GPUupdate.o obj/GPUAlloc.o obj/param.o obj/ParticleTrack.o obj/Interpolation.o -leinspline -I${HOME}/einspline/include/einspline -L${HOME}/einspline/lib -L/home/soft/cuda-7.0/lib64 -lcudart
+
+Main.o: src/Main.cpp src/FlowField.h src/update.h src/param.h
+	mpiicpc -xcore-avx2 -O3 -c src/Main.cpp -o obj/Main.o -leinspline -I${HOME}/einspline/include/einspline -L${HOME}/einspline/lib
+	
+FlowField.o: src/FlowField.cpp src/param.h
+	mpiicpc -xcore-avx2 -O3 -c src/FlowField.cpp -o obj/FlowField.o
+	
+update.o: src/update.cpp src/update.h src/param.h src/ParticleTrack.h src/Interpolation.h
+	mpiicpc -xcore-avx2 -O3 -c src/update.cpp -o obj/update.o -leinspline -I${HOME}/einspline/include/einspline -L${HOME}/einspline/lib -D UseGPU
+
+ParticleTrack.o: src/ParticleTrack.cpp src/ParticleTrack.h src/param.h
+	mpiicpc -xcore-avx2 -O3 -c src/ParticleTrack.cpp -o obj/ParticleTrack.o -leinspline -I${HOME}/einspline/include/einspline -L${HOME}/einspline/lib
+
+Interpolation.o: src/Interpolation.cpp src/Interpolation.h src/param.h
+	mpiicpc -xcore-avx2 -O3 -c src/Interpolation.cpp -o obj/Interpolation.o -leinspline -I${HOME}/einspline/include/einspline -L${HOME}/einspline/lib
+	
+param.o: src/param.cpp
+	mpiicpc -xcore-avx2 -O3 -c src/param.cpp -o obj/param.o
+
+GPUAlloc.o: src/GPUAlloc.cu src/param.h src/GPUAlloc.h
+	nvcc -O3 -c src/GPUAlloc.cu -o obj/GPUAlloc.o -arch sm_35
+
+GPUupdate.o: src/GPUupdate.cu src/GPUupdate.h src/GPUAlloc.h src/param.h
+	nvcc -O3 -c src/GPUupdate.cu -o obj/GPUupdate.o -arch sm_35
+	
+clean:
+	rm obj/*.o
