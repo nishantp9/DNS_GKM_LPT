@@ -1,5 +1,9 @@
 # Direct numerical simulation code for simulating Decaying Isotropic Flow and Lagrangian Particle Tracking
 
+<p align="center" width="90%">
+  <img src='HPC.png' width="90%">
+</p>
+
 ## Key Features
 * Solves 3D compressible turbulent flow in a cubic domain with periodic Boundary Conditions
 * Simulates Decaying compressible isotropic turbulent flow
