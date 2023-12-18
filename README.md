@@ -1,9 +1,4 @@
 # Direct numerical simulation code for simulating Decaying Isotropic Flow and Lagrangian Particle Tracking
-
-<p align="center" width="90%">
-  <img src='HPC.png' width="90%">
-</p>
-
 ## Key Features
 * Solves 3D compressible turbulent flow in a cubic domain with periodic Boundary Conditions
 * Simulates Decaying compressible isotropic turbulent flow
@@ -13,10 +8,21 @@
 
 ## Packages required
 * CUDA compliers
-    * module load compiler/cuda/7.0/compilervars
+  - `module load compiler/cuda/7.0/compilervars`
 * Intel parallelStudio
-    * module load suite/intel/parallelStudio
-* Install einspline library http://einspline.sourceforge.net/ in the HPC $HOME folder
+  - `module load suite/intel/parallelStudio`
+* Install einspline library `http://einspline.sourceforge.net/` in the `$HOME` folder
+
+### Einspline installation
+* To install einspline library with the latest gcc compilers use the modified repo:
+```shell
+  git clone https://github.com/nishantp9/einspline-0.9.2
+  cd einspline-0.9.2
+  chmod +777 configure
+  ./configure --prefix=$HOME/einspline
+  make
+  make install
+```
 
 ## Instructions to run the code on IITD HPC cluster https://supercomputing.iitd.ac.in/
 ### Generate initial conditions
@@ -31,17 +37,21 @@
 * Running the script "Part_Gen.m" will generate random particle locations
 
 ### Generate required directories
-* source getFolders.sh
+  - `source getFolders.sh`
 
 ### Compling the code for running on distribued nodes with multi-GPUs (MPI and CUDA)
 * Recommended for running high resolution simulations >= 512^3
-* make -f makefileGPU
+  - `make -f makefileGPU`
 
 ### Compling the code for running on distributed multi-core CPUs only (MPI)
 * Recommended for running lower resolution simulations <= 256^3
-* make -f makefileCPU
+  - `make -f makefileCPU`
 
 ### Submitting Job on HPC
 * Open the bash file "pbsbatch.sh" and specify project name, log-files and required compute resource
 * Submit the job following instructions from: https://supercomputing.iitd.ac.in/?pbs
-                                                              
+### Testing and compiling on local linux machine
+```shell
+make -f makefileCPU_local
+mpirun -np 8 ./Main.out > log_dns
+```
