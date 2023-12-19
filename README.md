@@ -27,7 +27,8 @@
 ## Instructions to run the code on IITD HPC cluster `https://supercomputing.iitd.ac.in/`
 ### Generate initial conditions
 * Open the script `init_DNS.m` from `InitialConditions` directory and specify turbulent Mach number, Reynolds number and grid dimension
-* Change parameters: (procDim_y, procDim_x, procDim_z) defining the number of virtual 3D topology of processors
+* Change parameters: `(procDim_y, procDim_x, procDim_z)` defining the number of virtual 3D topology of processors
+* Total number of cpu-processors required is then `procDim_y x procDim_x x procDim_z`
 * The data is distributed into cubical chunks decided by the virtual topology of the processors
 * Open `params.h` header file in <src> directory and specify `(procDim_y, procDim_x, procDim_z)` values that are specified in `init_DNS.m`
 * Running the script `init_DNS.m` will generate the initial conditions for the flow
@@ -49,6 +50,7 @@
 
 ### Submitting Job on HPC
 * Open the bash file `pbsbatch.sh` and specify project name, log-files and required compute resource
+* Number of processors for mpirun command should be equal to `procDim_y x procDim_x x procDim_z`
 * Submit the job following instructions from: `https://supercomputing.iitd.ac.in/?pbs`
 ### Testing and compiling on local linux machine
 ```shell
