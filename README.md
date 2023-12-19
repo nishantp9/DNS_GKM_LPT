@@ -26,14 +26,14 @@
 
 ## Instructions to run the code on IITD HPC cluster `https://supercomputing.iitd.ac.in/`
 ### Generate initial conditions
-* Open the script "init_DNS.m" from <InitialConditions> directory and specify turbulent Mach number, Reynolds number and grid dimension
+* Open the script `init_DNS.m` from `InitialConditions` directory and specify turbulent Mach number, Reynolds number and grid dimension
 * Change parameters: (procDim_y, procDim_x, procDim_z) defining the number of virtual 3D topology of processors
 * The data is distributed into cubical chunks decided by the virtual topology of the processors
-* Open `params.h` header file in <src> directory and specify (procDim_y, procDim_x, procDim_z) values that are specified in `init_DNS.m`
+* Open `params.h` header file in <src> directory and specify `(procDim_y, procDim_x, procDim_z)` values that are specified in `init_DNS.m`
 * Running the script `init_DNS.m` will generate the initial conditions for the flow
 
 ### Generate random initial locations of particles to be tracked with the flow
-* Open the script `Part_Gen.m` from <InitialConditions> directory and specify the number of particles to be tracked
+* Open the script `Part_Gen.m` from `InitialConditions` directory and specify the number of particles to be tracked
 * Running the script `Part_Gen.m` will generate random particle locations
 
 ### Generate required directories
@@ -53,5 +53,5 @@
 ### Testing and compiling on local linux machine
 ```shell
 make -f makefileCPU_local
-mpirun -np 8 ./Main.out > log_dns
+mpirun -np <num_processors> ./Main.out > log_dns
 ```
