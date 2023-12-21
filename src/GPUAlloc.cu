@@ -2,7 +2,6 @@
 
 DevAlloc::DevAlloc()
 {
-
 	CUMAKE(d_W0);
 	CUMAKE(d_W1);
 	CUMAKE(d_W2);

@@ -274,9 +274,7 @@ void PeriodicBC(ptype *W[5])
 
 void segment()
 {
-
 	/*  Right now only works for even procDims  */
-
 	::sta[0] = procId[0] * nc_segy;
 	::sta[1] = procId[1] * nc_segx;
 	::sta[2] = procId[2] * nc_segz;
@@ -287,19 +285,16 @@ void segment()
 
 void segmentFill(ptype *W[5], ptype *W0[5])
 {
-
 	For(j, nt_segy)
-		For(i, nt_segx)
-			For(k, nt_segz)
+	For(i, nt_segx)
+	For(k, nt_segz)
 	{
 		/** 0 -> j; 1 -> i; 2 -> k **/
 		int segId = I(sta[0] + j, sta[1] + i, sta[2] + k);
 		int segFillId = Is(j, i, k);
 
 		FOR(q, 5)
-		{
 			W[q][segFillId] = W0[q][segId];
-		}
 	}
 }
 

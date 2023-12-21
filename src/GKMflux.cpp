@@ -74,7 +74,7 @@ void flux(ptype WL[5], ptype WR[5], ptype Wl[5], ptype Wr[5], ptype DWxl[5], pty
 	MCal(Mngr000, Inr, Ifr, Ie2r, Ie4r, 0, 0, 0);
 
 	FOR(q, 5)
-	We[q] = denl * Mpgl000[q] + denr * Mngr000[q];
+		We[q] = denl * Mpgl000[q] + denr * Mngr000[q];
 
 	c2p(We, dene, Ue, Pe);
 	lame = 0.5 * dene / Pe;

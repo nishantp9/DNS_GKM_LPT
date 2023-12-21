@@ -6,7 +6,7 @@ Particle::Particle()
 {
 	infoSz = 8;
 	FOR(q, infoSz)
-	info[q] = 0;
+		info[q] = 0;
 }
 
 void Particle::initializeParticle(ptype x0, ptype y0, ptype z0, int tag)
@@ -22,7 +22,7 @@ void Particle::identifyBlock()
 {
 
 	FOR(q, 3)
-	block[q] = int(pos[q] * procDim[q] / (2 * pi));
+		block[q] = int(pos[q] * procDim[q] / (2 * pi));
 
 	blockChanged = false;
 	if (block[0] * procDim[1] * procDim[2] + block[1] * procDim[2] + block[2] != myrank_3d)

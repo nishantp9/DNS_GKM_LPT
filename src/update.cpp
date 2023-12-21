@@ -133,9 +133,8 @@ void Evolve(ptype *W[5], MPI_Comm comm3d)
 		}
 
 		FOR(q, count)
-		{
 			particles[q].getParticleProp(splinep);
-		}
+
 		GetParticleStats(particles, splinep);
 
 		if (iter % 10 == 0)
@@ -160,10 +159,10 @@ void Evolve(ptype *W[5], MPI_Comm comm3d)
 		evolveParticles(particles, splinep, splinepn, sendParticle, recvParticle);
 
 		FOR(i, 8)
-		destroy_Bspline(splinep[i]);
+			destroy_Bspline(splinep[i]);
 
 		FOR(i, 3)
-		destroy_Bspline(splinepn[i]);
+			destroy_Bspline(splinepn[i]);
 
 		timestep(W);
 		t += dt;
@@ -181,11 +180,11 @@ void Evolve(ptype *W[5], MPI_Comm comm3d)
 
 #ifdef UseCPU
 	FOR(q, 5)
-	delete[] Fx[q], Fy[q], Fz[q];
+		delete[] Fx[q], Fy[q], Fz[q];
 #endif
 
 	FOR(q, 27)
-	delete[] sendParticle[q], recvParticle[q];
+		delete[] sendParticle[q], recvParticle[q];
 }
 
 /** ----------------------------------------------------------------------------
@@ -217,73 +216,71 @@ void derivsX(ptype *W[5], ptype *Fx[5])
 	//	# pragma omp parallel for num_threads(nomp)
 
 	For(j, nt_segy)
-		FoR(i, nt_segx)
+	FoR(i, nt_segx)
+	For(k, nt_segz)
 	{
-		For(k, nt_segz)
+		FOR(q, 5)
 		{
-			FOR(q, 5)
-			{
-				WL[q] = W[q][Is(j, i, k)];
-				WLL[q] = W[q][Is(j, i - 1, k)];
-				WLLL[q] = W[q][Is(j, i - 2, k)];
-				WR[q] = W[q][Is(j, i + 1, k)];
-				WRR[q] = W[q][Is(j, i + 2, k)];
-				WRRR[q] = W[q][Is(j, i + 3, k)];
+			WL[q] = W[q][Is(j, i, k)];
+			WLL[q] = W[q][Is(j, i - 1, k)];
+			WLLL[q] = W[q][Is(j, i - 2, k)];
+			WR[q] = W[q][Is(j, i + 1, k)];
+			WRR[q] = W[q][Is(j, i + 2, k)];
+			WRRR[q] = W[q][Is(j, i + 3, k)];
 
-				WLN[q] = W[q][Is(j + 1, i, k)];
-				WLLN[q] = W[q][Is(j + 1, i - 1, k)];
-				WLLLN[q] = W[q][Is(j + 1, i - 2, k)];
-				WRN[q] = W[q][Is(j + 1, i + 1, k)];
-				WRRN[q] = W[q][Is(j + 1, i + 2, k)];
-				WRRRN[q] = W[q][Is(j + 1, i + 3, k)];
+			WLN[q] = W[q][Is(j + 1, i, k)];
+			WLLN[q] = W[q][Is(j + 1, i - 1, k)];
+			WLLLN[q] = W[q][Is(j + 1, i - 2, k)];
+			WRN[q] = W[q][Is(j + 1, i + 1, k)];
+			WRRN[q] = W[q][Is(j + 1, i + 2, k)];
+			WRRRN[q] = W[q][Is(j + 1, i + 3, k)];
 
-				WLS[q] = W[q][Is(j - 1, i, k)];
-				WLLS[q] = W[q][Is(j - 1, i - 1, k)];
-				WLLLS[q] = W[q][Is(j - 1, i - 2, k)];
-				WRS[q] = W[q][Is(j - 1, i + 1, k)];
-				WRRS[q] = W[q][Is(j - 1, i + 2, k)];
-				WRRRS[q] = W[q][Is(j - 1, i + 3, k)];
+			WLS[q] = W[q][Is(j - 1, i, k)];
+			WLLS[q] = W[q][Is(j - 1, i - 1, k)];
+			WLLLS[q] = W[q][Is(j - 1, i - 2, k)];
+			WRS[q] = W[q][Is(j - 1, i + 1, k)];
+			WRRS[q] = W[q][Is(j - 1, i + 2, k)];
+			WRRRS[q] = W[q][Is(j - 1, i + 3, k)];
 
-				WLF[q] = W[q][Is(j, i, k + 1)];
-				WLLF[q] = W[q][Is(j, i - 1, k + 1)];
-				WLLLF[q] = W[q][Is(j, i - 2, k + 1)];
-				WRF[q] = W[q][Is(j, i + 1, k + 1)];
-				WRRF[q] = W[q][Is(j, i + 2, k + 1)];
-				WRRRF[q] = W[q][Is(j, i + 3, k + 1)];
+			WLF[q] = W[q][Is(j, i, k + 1)];
+			WLLF[q] = W[q][Is(j, i - 1, k + 1)];
+			WLLLF[q] = W[q][Is(j, i - 2, k + 1)];
+			WRF[q] = W[q][Is(j, i + 1, k + 1)];
+			WRRF[q] = W[q][Is(j, i + 2, k + 1)];
+			WRRRF[q] = W[q][Is(j, i + 3, k + 1)];
 
-				WLB[q] = W[q][Is(j, i, k - 1)];
-				WLLB[q] = W[q][Is(j, i - 1, k - 1)];
-				WLLLB[q] = W[q][Is(j, i - 2, k - 1)];
-				WRB[q] = W[q][Is(j, i + 1, k - 1)];
-				WRRB[q] = W[q][Is(j, i + 2, k - 1)];
-				WRRRB[q] = W[q][Is(j, i + 3, k - 1)];
-			}
-
-			ApplyWENO(WLLL, WLL, WL, WR, WRR, WRRR, Wl, Wr);
-			ApplyWENO(WLLLN, WLLN, WLN, WRN, WRRN, WRRRN, WlN, WrN);
-			ApplyWENO(WLLLS, WLLS, WLS, WRS, WRRS, WRRRS, WlS, WrS);
-			ApplyWENO(WLLLF, WLLF, WLF, WRF, WRRF, WRRRF, WlF, WrF);
-			ApplyWENO(WLLLB, WLLB, WLB, WRB, WRRB, WRRRB, WlB, WrB);
-
-			FOR(q, 5)
-			{
-				DWxl[q] = 2 * (Wl[q] - WL[q]) / dx;
-				DWxr[q] = 2 * (WR[q] - Wr[q]) / dx;
-				DWyl[q] = 0.5 * (WlN[q] - WlS[q]) / dx;
-				DWyr[q] = 0.5 * (WrN[q] - WrS[q]) / dx;
-				DWzl[q] = 0.5 * (WlF[q] - WlB[q]) / dx;
-				DWzr[q] = 0.5 * (WrF[q] - WrB[q]) / dx;
-			}
-
-			c2p();
-			mu = mu0 * pow((Ti / T0), 1.5) * (T0 + 110.4) / (Ti + 110.4);
-			tau = mu / Pi;
-
-			flux(WL, WR, Wl, Wr, DWxl, DWxr, DWyl, DWyr, DWzl, DWzr, tau, dt, dx, F);
-			// flux(Wl, DWxl, DWyl, DWzl, tau, dt, dx, F);
-			FOR(r, 5)
-			Fx[r][Is(j, i, k)] = F[r];
+			WLB[q] = W[q][Is(j, i, k - 1)];
+			WLLB[q] = W[q][Is(j, i - 1, k - 1)];
+			WLLLB[q] = W[q][Is(j, i - 2, k - 1)];
+			WRB[q] = W[q][Is(j, i + 1, k - 1)];
+			WRRB[q] = W[q][Is(j, i + 2, k - 1)];
+			WRRRB[q] = W[q][Is(j, i + 3, k - 1)];
 		}
+
+		ApplyWENO(WLLL, WLL, WL, WR, WRR, WRRR, Wl, Wr);
+		ApplyWENO(WLLLN, WLLN, WLN, WRN, WRRN, WRRRN, WlN, WrN);
+		ApplyWENO(WLLLS, WLLS, WLS, WRS, WRRS, WRRRS, WlS, WrS);
+		ApplyWENO(WLLLF, WLLF, WLF, WRF, WRRF, WRRRF, WlF, WrF);
+		ApplyWENO(WLLLB, WLLB, WLB, WRB, WRRB, WRRRB, WlB, WrB);
+
+		FOR(q, 5)
+		{
+			DWxl[q] = 2 * (Wl[q] - WL[q]) / dx;
+			DWxr[q] = 2 * (WR[q] - Wr[q]) / dx;
+			DWyl[q] = 0.5 * (WlN[q] - WlS[q]) / dx;
+			DWyr[q] = 0.5 * (WrN[q] - WrS[q]) / dx;
+			DWzl[q] = 0.5 * (WlF[q] - WlB[q]) / dx;
+			DWzr[q] = 0.5 * (WrF[q] - WrB[q]) / dx;
+		}
+
+		c2p();
+		mu = mu0 * pow((Ti / T0), 1.5) * (T0 + 110.4) / (Ti + 110.4);
+		tau = mu / Pi;
+
+		flux(WL, WR, Wl, Wr, DWxl, DWxr, DWyl, DWyr, DWzl, DWzr, tau, dt, dx, F);
+		// flux(Wl, DWxl, DWyl, DWzl, tau, dt, dx, F);
+		FOR(r, 5)
+			Fx[r][Is(j, i, k)] = F[r];
 	}
 }
 
@@ -291,8 +288,8 @@ void derivsY(ptype *W[5], ptype *Fy[5])
 {
 	//	# pragma omp parallel for num_threads(nomp)
 	FoR(j, nt_segy)
-		For(i, nt_segx)
-			For(k, nt_segz)
+	For(i, nt_segx)
+	For(k, nt_segz)
 	{
 		FOR(q, 5)
 		{
@@ -388,7 +385,7 @@ void derivsY(ptype *W[5], ptype *Fy[5])
 		// flux(Wl, DWxl, DWyl, DWzl, tau, dt, dx, F);
 
 		FOR(r, 5)
-		Fy[r][Is(j, i, k)] = F[r];
+			Fy[r][Is(j, i, k)] = F[r];
 
 		temp = Fy[2][Is(j, i, k)];
 		Fy[2][Is(j, i, k)] = Fy[1][Is(j, i, k)];
@@ -400,119 +397,117 @@ void derivsZ(ptype *W[5], ptype *Fz[5])
 {
 	//	# pragma omp parallel for num_threads(nomp)
 	For(j, nt_segy)
-		For(i, nt_segx)
+	For(i, nt_segx)
+	FoR(k, nt_segz)
 	{
-		FoR(k, nt_segz)
+		FOR(q, 5)
 		{
-			FOR(q, 5)
-			{
-				WL[q] = W[q][Is(j, i, k)];
-				WLL[q] = W[q][Is(j, i, k - 1)];
-				WLLL[q] = W[q][Is(j, i, k - 2)];
-				WR[q] = W[q][Is(j, i, k + 1)];
-				WRR[q] = W[q][Is(j, i, k + 2)];
-				WRRR[q] = W[q][Is(j, i, k + 3)];
+			WL[q] = W[q][Is(j, i, k)];
+			WLL[q] = W[q][Is(j, i, k - 1)];
+			WLLL[q] = W[q][Is(j, i, k - 2)];
+			WR[q] = W[q][Is(j, i, k + 1)];
+			WRR[q] = W[q][Is(j, i, k + 2)];
+			WRRR[q] = W[q][Is(j, i, k + 3)];
 
-				WLN[q] = W[q][Is(j, i + 1, k)];
-				WLLN[q] = W[q][Is(j, i + 1, k - 1)];
-				WLLLN[q] = W[q][Is(j, i + 1, k - 2)];
-				WRN[q] = W[q][Is(j, i + 1, k + 1)];
-				WRRN[q] = W[q][Is(j, i + 1, k + 2)];
-				WRRRN[q] = W[q][Is(j, i + 1, k + 3)];
+			WLN[q] = W[q][Is(j, i + 1, k)];
+			WLLN[q] = W[q][Is(j, i + 1, k - 1)];
+			WLLLN[q] = W[q][Is(j, i + 1, k - 2)];
+			WRN[q] = W[q][Is(j, i + 1, k + 1)];
+			WRRN[q] = W[q][Is(j, i + 1, k + 2)];
+			WRRRN[q] = W[q][Is(j, i + 1, k + 3)];
 
-				WLS[q] = W[q][Is(j, i - 1, k)];
-				WLLS[q] = W[q][Is(j, i - 1, k - 1)];
-				WLLLS[q] = W[q][Is(j, i - 1, k - 2)];
-				WRS[q] = W[q][Is(j, i - 1, k + 1)];
-				WRRS[q] = W[q][Is(j, i - 1, k + 2)];
-				WRRRS[q] = W[q][Is(j, i - 1, k + 3)];
+			WLS[q] = W[q][Is(j, i - 1, k)];
+			WLLS[q] = W[q][Is(j, i - 1, k - 1)];
+			WLLLS[q] = W[q][Is(j, i - 1, k - 2)];
+			WRS[q] = W[q][Is(j, i - 1, k + 1)];
+			WRRS[q] = W[q][Is(j, i - 1, k + 2)];
+			WRRRS[q] = W[q][Is(j, i - 1, k + 3)];
 
-				WLF[q] = W[q][Is(j + 1, i, k)];
-				WLLF[q] = W[q][Is(j + 1, i, k - 1)];
-				WLLLF[q] = W[q][Is(j + 1, i, k - 2)];
-				WRF[q] = W[q][Is(j + 1, i, k + 1)];
-				WRRF[q] = W[q][Is(j + 1, i, k + 2)];
-				WRRRF[q] = W[q][Is(j + 1, i, k + 3)];
+			WLF[q] = W[q][Is(j + 1, i, k)];
+			WLLF[q] = W[q][Is(j + 1, i, k - 1)];
+			WLLLF[q] = W[q][Is(j + 1, i, k - 2)];
+			WRF[q] = W[q][Is(j + 1, i, k + 1)];
+			WRRF[q] = W[q][Is(j + 1, i, k + 2)];
+			WRRRF[q] = W[q][Is(j + 1, i, k + 3)];
 
-				WLB[q] = W[q][Is(j - 1, i, k)];
-				WLLB[q] = W[q][Is(j - 1, i, k - 1)];
-				WLLLB[q] = W[q][Is(j - 1, i, k - 2)];
-				WRB[q] = W[q][Is(j - 1, i, k + 1)];
-				WRRB[q] = W[q][Is(j - 1, i, k + 2)];
-				WRRRB[q] = W[q][Is(j - 1, i, k + 3)];
-			}
+			WLB[q] = W[q][Is(j - 1, i, k)];
+			WLLB[q] = W[q][Is(j - 1, i, k - 1)];
+			WLLLB[q] = W[q][Is(j - 1, i, k - 2)];
+			WRB[q] = W[q][Is(j - 1, i, k + 1)];
+			WRRB[q] = W[q][Is(j - 1, i, k + 2)];
+			WRRRB[q] = W[q][Is(j - 1, i, k + 3)];
+		}
 
-			ApplyWENO(WLLL, WLL, WL, WR, WRR, WRRR, Wl, Wr);
-			ApplyWENO(WLLLN, WLLN, WLN, WRN, WRRN, WRRRN, WlN, WrN);
-			ApplyWENO(WLLLS, WLLS, WLS, WRS, WRRS, WRRRS, WlS, WrS);
-			ApplyWENO(WLLLF, WLLF, WLF, WRF, WRRF, WRRRF, WlF, WrF);
-			ApplyWENO(WLLLB, WLLB, WLB, WRB, WRRB, WRRRB, WlB, WrB);
+		ApplyWENO(WLLL, WLL, WL, WR, WRR, WRRR, Wl, Wr);
+		ApplyWENO(WLLLN, WLLN, WLN, WRN, WRRN, WRRRN, WlN, WrN);
+		ApplyWENO(WLLLS, WLLS, WLS, WRS, WRRS, WRRRS, WlS, WrS);
+		ApplyWENO(WLLLF, WLLF, WLF, WRF, WRRF, WRRRF, WlF, WrF);
+		ApplyWENO(WLLLB, WLLB, WLB, WRB, WRRB, WRRRB, WlB, WrB);
 
-			FOR(q, 5)
-			{
-				DWxl[q] = 2 * (Wl[q] - WL[q]) / dx;
-				DWxr[q] = 2 * (WR[q] - Wr[q]) / dx;
-				DWyl[q] = 0.5 * (WlN[q] - WlS[q]) / dx;
-				DWyr[q] = 0.5 * (WrN[q] - WrS[q]) / dx;
-				DWzl[q] = 0.5 * (WlF[q] - WlB[q]) / dx;
-				DWzr[q] = 0.5 * (WrF[q] - WrB[q]) / dx;
-			}
+		FOR(q, 5)
+		{
+			DWxl[q] = 2 * (Wl[q] - WL[q]) / dx;
+			DWxr[q] = 2 * (WR[q] - Wr[q]) / dx;
+			DWyl[q] = 0.5 * (WlN[q] - WlS[q]) / dx;
+			DWyr[q] = 0.5 * (WrN[q] - WrS[q]) / dx;
+			DWzl[q] = 0.5 * (WlF[q] - WlB[q]) / dx;
+			DWzr[q] = 0.5 * (WrF[q] - WrB[q]) / dx;
+		}
 
-			c2p();
-			mu = mu0 * pow((Ti / T0), 1.5) * (T0 + 110.4) / (Ti + 110.4);
-			tau = mu / Pi;
+		c2p();
+		mu = mu0 * pow((Ti / T0), 1.5) * (T0 + 110.4) / (Ti + 110.4);
+		tau = mu / Pi;
 
-			temp = WL[3];
-			WL[3] = WL[1];
-			WL[1] = temp;
-			temp = WR[3];
-			WR[3] = WR[1];
-			WR[1] = temp;
-			temp = Wl[3];
-			Wl[3] = Wl[1];
-			Wl[1] = temp;
-			temp = Wr[3];
-			Wr[3] = Wr[1];
-			Wr[1] = temp;
+		temp = WL[3];
+		WL[3] = WL[1];
+		WL[1] = temp;
+		temp = WR[3];
+		WR[3] = WR[1];
+		WR[1] = temp;
+		temp = Wl[3];
+		Wl[3] = Wl[1];
+		Wl[1] = temp;
+		temp = Wr[3];
+		Wr[3] = Wr[1];
+		Wr[1] = temp;
 
-			temp = DWxl[3];
-			DWxl[3] = DWxl[1];
-			DWxl[1] = temp;
-			temp = DWxr[3];
-			DWxr[3] = DWxr[1];
-			DWxr[1] = temp;
-			temp = DWyl[3];
-			DWyl[3] = DWyl[1];
-			DWyl[1] = temp;
-			temp = DWyr[3];
-			DWyr[3] = DWyr[1];
-			DWyr[1] = temp;
-			temp = DWzl[3];
-			DWzl[3] = DWzl[1];
-			DWzl[1] = temp;
-			temp = DWzr[3];
-			DWzr[3] = DWzr[1];
-			DWzr[1] = temp;
+		temp = DWxl[3];
+		DWxl[3] = DWxl[1];
+		DWxl[1] = temp;
+		temp = DWxr[3];
+		DWxr[3] = DWxr[1];
+		DWxr[1] = temp;
+		temp = DWyl[3];
+		DWyl[3] = DWyl[1];
+		DWyl[1] = temp;
+		temp = DWyr[3];
+		DWyr[3] = DWyr[1];
+		DWyr[1] = temp;
+		temp = DWzl[3];
+		DWzl[3] = DWzl[1];
+		DWzl[1] = temp;
+		temp = DWzr[3];
+		DWzr[3] = DWzr[1];
+		DWzr[1] = temp;
 
-			flux(WL, WR, Wl, Wr, DWxl, DWxr, DWyl, DWyr, DWzl, DWzr, tau, dt, dx, F);
-			// flux(Wl, DWxl, DWyl, DWzl, tau, dt, dx, F);
+		flux(WL, WR, Wl, Wr, DWxl, DWxr, DWyl, DWyr, DWzl, DWzr, tau, dt, dx, F);
+		// flux(Wl, DWxl, DWyl, DWzl, tau, dt, dx, F);
 
-			FOR(r, 5)
+		FOR(r, 5)
 			Fz[r][Is(j, i, k)] = F[r];
 
-			temp = Fz[3][Is(j, i, k)];
-			Fz[3][Is(j, i, k)] = Fz[1][Is(j, i, k)];
-			Fz[1][Is(j, i, k)] = temp;
-		}
+		temp = Fz[3][Is(j, i, k)];
+		Fz[3][Is(j, i, k)] = Fz[1][Is(j, i, k)];
+		Fz[1][Is(j, i, k)] = temp;
 	}
 }
 
 void update(ptype *W[5], ptype *Fx[5], ptype *Fy[5], ptype *Fz[5])
 {
 	For(j, nt_segy)
-		For(i, nt_segx)
-			For(k, nt_segz)
-				FOR(q, 5)
+	For(i, nt_segx)
+	For(k, nt_segz)
+	FOR(q, 5)
 	{
 		W[q][Is(j, i, k)] -= (1 / dx) * (Fx[q][Is(j, i, k)] - Fx[q][Is(j, i - 1, k)] +
 										 Fy[q][Is(j, i, k)] - Fy[q][Is(j - 1, i, k)] +
@@ -718,12 +713,12 @@ void PrintStats(ptype *W[5], UBspline_3d_d *splinep[8])
 	cout.precision(8);
 
 	For(j, nt_segy)
-		For(i, nt_segx)
-			For(k, nt_segz)
+	For(i, nt_segx)
+	For(k, nt_segz)
 	{
-
 		FOR(q, 5)
-		WL[q] = W[q][Is(j, i, k)];
+			WL[q] = W[q][Is(j, i, k)];
+
 		c2p();
 		localPmean += Pi;
 		localTmean += Ti;
@@ -811,11 +806,11 @@ void PrintStats(ptype *W[5], UBspline_3d_d *splinep[8])
 	Vmean /= Nc;
 
 	For(j, nt_segy)
-		For(i, nt_segx)
-			For(k, nt_segz)
+	For(i, nt_segx)
+	For(k, nt_segz)
 	{
 		FOR(q, 5)
-		WL[q] = W[q][Is(j, i, k)];
+			WL[q] = W[q][Is(j, i, k)];
 
 		c2p();
 		localPrms += pow((Pmean - Pi), 2);
@@ -965,6 +960,7 @@ void HaloTransfer(ptype *W[5], ptype *send_HaloL, ptype *recv_HaloL, ptype *send
 		int segId = Is(j, i, k);
 		W[q][segId] = recv_HaloR[haloID];
 	}
+
 	FOR(j, nt_segy)
 	FOR_(i, 0, 3)
 	FOR(k, nt_segz)
@@ -987,6 +983,7 @@ void HaloTransfer(ptype *W[5], ptype *send_HaloL, ptype *recv_HaloL, ptype *send
 		int segId = Is(j, i, k);
 		send_HaloB[haloID] = W[q][segId];
 	}
+
 	FOR(j, nt_segy)
 	FOR(i, nt_segx)
 	FOR_(k, nt_segz - 6, nt_segz - 3)
@@ -1035,11 +1032,12 @@ void timestep(ptype *W[5])
 {
 	U = 0.0, localVAL = 0.0, maxVAL = 0.0, Rex, valC = 0, localmaxVAL = 0.0;
 	For(j, nt_segy)
-		For(i, nt_segx)
-			For(k, nt_segz)
+	For(i, nt_segx)
+	For(k, nt_segz)
 	{
 		FOR(q, 5)
-		WL[q] = W[q][Is(j, i, k)];
+			WL[q] = W[q][Is(j, i, k)];
+
 		c2p();
 		U = sqrt(Vsqr);
 
@@ -1072,7 +1070,6 @@ void evolveParticles(Particle *particles, UBspline_3d_d *splinep[8], UBspline_3d
 
 			FOR(ijk, 27)
 			{
-
 				if (particles[q].blockId == nbr[ijk])
 				{
 					FOR(i, InfoSz)
@@ -1167,7 +1164,8 @@ void GetParticleStats(Particle *particles, UBspline_3d_d *splinep[8])
 void pushParticle(Particle globalParticles, Particle *particles)
 {
 	FOR(q, InfoSz)
-	particles[count].info[q] = globalParticles.info[q];
+		particles[count].info[q] = globalParticles.info[q];
+
 	particles[count].distributeInfo();
 	++count;
 }
@@ -1178,7 +1176,7 @@ void pushParticle(Particle *particles, ptype *recv)
 	FOR(i, n)
 	{
 		FOR(q, InfoSz)
-		particles[count].info[q] = recv[i * InfoSz + q + 1];
+			particles[count].info[q] = recv[i * InfoSz + q + 1];
 		particles[count].distributeInfo();
 		/**		cout << "particle pushed ...  procId " << myrank_3d << "   " << particles[count].blockId << endl;
 		 */
@@ -1194,7 +1192,8 @@ void popParticle(Particle *particles, int particleId)
 	--count;
 	particles[count].collectInfo();
 	FOR(q, InfoSz)
-	particles[particleId].info[q] = particles[count].info[q];
+		particles[particleId].info[q] = particles[count].info[q];
+
 	particles[particleId].distributeInfo();
 }
 
@@ -1217,8 +1216,8 @@ void generateSplines(ptype *W[5], UBspline_3d_d *splinep[8], ptype *den, ptype *
 	splinep[4] = get_bsplinep(p);
 
 	For(j, nt_segy)
-		For(i, nt_segx)
-			For(k, nt_segz)
+	For(i, nt_segx)
+	For(k, nt_segz)
 	{
 		y = (sta[0] + j - 3) * dx + 0.5 * dx;
 		x = (sta[1] + i - 3) * dx + 0.5 * dx;
@@ -1279,7 +1278,9 @@ void findAllNbrs()
 	FOR(jj, 3)
 	FOR(ii, 3)
 	FOR(kk, 3)
-	nbr[jj * 3 * 3 + ii * 3 + kk] = j[jj] * procDim[1] * procDim[2] + i[ii] * procDim[2] + k[kk];
+	{
+		nbr[jj * 3 * 3 + ii * 3 + kk] = j[jj] * procDim[1] * procDim[2] + i[ii] * procDim[2] + k[kk];
+	}
 }
 
 void locateParticles(Particle *particles, UBspline_3d_d *splinep[8])
@@ -1396,7 +1397,8 @@ void WriteReInit(ptype *W[5])
 		int J = k * nc_segx * nc_segy + i * nc_segy + j;
 
 		FOR(q, 5)
-		WL[q] = W[q][I];
+			WL[q] = W[q][I];
+
 		c2p();
 		u0[J] = ui;
 		v0[J] = vi;
@@ -1427,8 +1429,8 @@ void writeVelGradTensor(UBspline_3d_d *splinep[8])
 	pFile = fopen(Field, "w");
 
 	For(j, nt_segy)
-		For(i, nt_segx)
-			For(k, nt_segz)
+	For(i, nt_segx)
+	For(k, nt_segz)
 	{
 		y = (sta[0] + j - 3) * dx + 0.5 * dx;
 		x = (sta[1] + i - 3) * dx + 0.5 * dx;

@@ -1281,7 +1281,7 @@ __global__ void flux(ptype *d_W0, ptype *d_W1, ptype *d_W2, ptype *d_W3, ptype *
 		d_MCal(Mngr000, Inr, Ifr, Ie2r, Ie4r, 0, 0, 0);
 
 		FOR(q, 5)
-		We[q] = denl * Mpgl000[q] + denr * Mngr000[q];
+			We[q] = denl * Mpgl000[q] + denr * Mngr000[q];
 
 		d_c2p(We, dene, Ue, Pe);
 		lame = 0.5 * dene / Pe;

@@ -45,5 +45,5 @@ int main(int argc, char *argv[])
 	MPI_Finalize();
 
 	FOR(q, 5)
-	delete[] W[q];
+		delete[] W[q];
 }

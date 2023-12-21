@@ -2,7 +2,6 @@
 
 UBspline_3d_d *get_bsplinep(ptype *data)
 {
-
     Ugrid x_grid, y_grid, z_grid;
     BCtype_d xBC;
     BCtype_d yBC;
@@ -33,7 +32,6 @@ UBspline_3d_d *get_bsplinep(ptype *data)
 
 UBspline_3d_d *get_bsplined(ptype *data)
 {
-
     Ugrid x_grid, y_grid, z_grid;
     BCtype_d xBC;
     BCtype_d yBC;
