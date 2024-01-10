@@ -12,7 +12,8 @@ N = 256;
 Np = N*N*N;	
 
 %% Specify Mach number, Reynolds number and peak energy wave-number k
-Mt = 0.488; Re  = 175; k0 = 4;
+#A = 0.0517; B=0.140;
+Mt = 0.488; Re  = 175; k0 = 4; kcmin=1.0; kcmax=8.0;
 A = (sqrt(2/pi)*(16/3)*Mt^2/k0^5);% for energy spectrum, constant
 enrgySpec=@(wavenumber) A*wavenumber.^4.*exp(-2*(wavenumber/k0).^2)*Np^2;
 
