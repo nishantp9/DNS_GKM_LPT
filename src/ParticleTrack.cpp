@@ -63,11 +63,11 @@ void Particle::updatePosition(UBspline_3d_d *splinep[8], UBspline_3d_d *splinepn
 	{
 		if (pos[q] > 2 * pi)
 		{
-			pos[q] = pos[q] - 2 * pi;
+			pos[q] = fmod(pos[q], 2 * pi);
 		}
 		if (pos[q] < 0)
 		{
-			pos[q] = 2 * pi + pos[q];
+			pos[q] = 2 * pi - fmod(-pos[q], 2 * pi);
 		}
 	}
 }
